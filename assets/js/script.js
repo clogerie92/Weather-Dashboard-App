@@ -5,6 +5,7 @@ $(document).ready(function() {
     var userInput = $("#user-input");
     var historyList = $(".history-list");
     var currentWeatherDiv = $("#current-weather");
+    var currentWeather = $("#current");
     var forecastDiv = $("#forecast");
     var fiveDayForecast = $("#five-day-forecast");
     // starting local storage
@@ -28,7 +29,7 @@ $(document).ready(function() {
             
             getCurrentWeather(lat, lon, name);
             makeHistoryList(name);
-            currentWeatherDiv.empty();
+            currentWeather.empty();
             fiveDayForecast.empty();
 
 
@@ -54,7 +55,7 @@ $(document).ready(function() {
             cityName.append(weatherIcon);
             cardBody.append(cityName, temp, humidity, windspeed, uvI);
             weatherCard.append(cardBody);
-            currentWeatherDiv.append(weatherCard);
+            currentWeather.append(weatherCard);
 
             for (var i = 1; i < 6; i++) {
                 var weatherCard = $("<div>").addClass("card");
