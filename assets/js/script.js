@@ -28,7 +28,7 @@ $(document).ready(function() {
 
             
             getCurrentWeather(lat, lon, name);
-            makeHistoryList(name);
+            // makeHistoryList(name);
             currentWeather.empty();
             fiveDayForecast.empty();
 
@@ -43,6 +43,11 @@ $(document).ready(function() {
             url: queryUrl,
             method: "GET"
         }).then(function(response) {
+            if (searchHistory.indexOf(name) === -1) {
+                searchHistory.push(name);
+                window.localStorage.setItem("history", JSON.stringify(searchHistory));
+                makeHistoryList(name);
+            }
             console.log("Current weather: ", response);
             var weatherCard = $("<div>").addClass("card");
             var cardBody = $("<div>").addClass("card-body");
@@ -77,11 +82,31 @@ $(document).ready(function() {
 
     function makeHistoryList(city) {
         // var cityName = userInput.val().trim();
-        var historyButton = $("<button>").addClass("btn btn-primary");
+        var historyButton = $("<button>").addClass("btn btn-primary history");
         historyButton.addClass("btn").text(city);
         historyList.append(historyButton);
     }
 
     searchBtn.on("click", getGeoLocation);
+
+    // history
+    if (searchHistory.length > 0) {
+        getCurrentWeather(searchHistory[searchHistory.length - 1]);
+    }
+
+    for (var i = 0; i < searchHistory.length; i++) {
+        makeHistoryList(searchHistory[i]);
+    }
+
+    deleteBtn.on("click", function(event) {
+        event.preventDefault();
+        cityList = [];
+        localStorage.removeItem("history");
+        document.location.reload();
+    });
+
+    $(".history").on("click", function() {
+        getCurrentWeather($(this).city);
+    });
 });
 
