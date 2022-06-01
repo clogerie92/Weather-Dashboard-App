@@ -42,14 +42,18 @@ $(document).ready(function() {
             url: queryUrl,
             method: "GET"
         }).then(function(response) {
+            // adds city name to history list
             if (searchHistory.indexOf(name) === -1) {
                 searchHistory.push(name);
                 window.localStorage.setItem("history", JSON.stringify(searchHistory));
                 makeHistoryList(name);
             }
             console.log("Current weather: ", response);
+            console.log(new Date(response.current.dt * 1000 + (response.current.timezone_offset * 1000)));
             var weatherCard = $("<div>").addClass("card");
             var cardBody = $("<div>").addClass("card-body");
+            var dt = response.current.dt;
+            var day = $("<p>").text(new Date(dt * 1000).toDateString());
             var cityName = $("<h3>").addClass("card-title").text(name);
             var weatherIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.current.weather[0].icon + ".png");
             var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + Math.floor(response.current.temp));
@@ -65,7 +69,7 @@ $(document).ready(function() {
                 button.addClass("btn-danger");
             }
         
-            cityName.append(weatherIcon);
+            cityName.append(weatherIcon, day);
             cardBody.append(cityName, temp, humidity, windspeed, button);
             weatherCard.append(cardBody);
             currentWeather.append(weatherCard);
@@ -74,12 +78,14 @@ $(document).ready(function() {
                 var weatherCard = $("<div>").addClass("card");
                 var cardBody = $("<div>").addClass("card-body");
                 var cityName = $("<h3>").addClass("card-title").text(name);
+                var dt = response.daily[i].dt;
+                var day = $("<p>").text(new Date(dt * 1000).toDateString());
                 var weatherIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.daily[i].weather[0].icon + ".png");
                 var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + Math.floor(response.daily[i].temp.day));
                 var humidity = $("<p>").addClass("card-text").text("Humidity: " + Math.floor(response.daily[i].humidity));
                 var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + Math.floor(response.daily[i].wind_speed));
                 
-                cityName.append(weatherIcon);
+                cityName.append(weatherIcon, day);
                 cardBody.append(cityName, temp, humidity, windspeed);
                 weatherCard.append(cardBody);
                 fiveDayForecast.append(weatherCard);
@@ -90,8 +96,8 @@ $(document).ready(function() {
 
     // function to create history list
     function makeHistoryList(city) {
-        var historyButton = $("<li>").addClass("list-group-item list-group-item-action history");
-        historyButton.addClass("btn").text(city);
+        var historyButton = $("<button>").addClass("btn history");
+        historyButton.text(city);
         historyList.append(historyButton);
     }
 
@@ -117,7 +123,7 @@ $(document).ready(function() {
 
     // event listener to render weather data from history
     $(".history").on("click", "li", function() {
-        getGeoLocation($(this).city);
+        getCurrentWeather($(this).city);
     });
 });
 
