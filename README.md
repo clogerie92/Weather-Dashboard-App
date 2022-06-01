@@ -12,6 +12,7 @@ When the user views current weather conditions for that city they are presented 
 When the user views the UV index they are presented with a color that indicates whether the conditions are favorable, moderate, or severe
 When the user views future weather conditions for that city they are presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 When the user clicks on a city in the search history they are again presented with current and future conditions for that city
+When the user clicks the red trash button they clear all weather data from the page
 
 ```
 
