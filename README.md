@@ -16,7 +16,7 @@ When the user clicks on a city in the search history they are again presented wi
 
 ```
 ## Deployed Link
-![Visit the Weather Dashboard here.](https://clogerie92.github.io/Weather-Dashboard-App/)
+(https://clogerie92.github.io/Weather-Dashboard-App/)
 
 
 ## Mock-Up
