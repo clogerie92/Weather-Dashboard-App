@@ -55,8 +55,17 @@ $(document).ready(function() {
             var humidity = $("<p>").addClass("card-text").text("Humidity: " + Math.floor(response.current.humidity));
             var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + Math.floor(response.current.wind_speed));
             var uvI = $("<p>").addClass("card-text").text("UV Index: " + response.current.uvi);
+            var button = $("<button>").addClass("btn btn-sm").text("UV Index: " + response.current.uvi);
+            if (uvI > 3) {
+                button.addClass("btn-success");
+            } else if (uvI > 7) {
+                button.addClass("btn-warning");
+            } else{ 
+                button.addClass("btn-danger");
+            }
+        
             cityName.append(weatherIcon);
-            cardBody.append(cityName, temp, humidity, windspeed, uvI);
+            cardBody.append(cityName, temp, humidity, windspeed, button);
             weatherCard.append(cardBody);
             currentWeather.append(weatherCard);
             // loops through current weather object and creates cards
