@@ -30,6 +30,7 @@ $(document).ready(function() {
             getCurrentWeather(lat, lon, name);
             currentWeather.empty();
             fiveDayForecast.empty();
+            userInput.val("");
         });
     }
 
@@ -94,8 +95,6 @@ $(document).ready(function() {
         historyList.append(historyButton);
     }
 
-    searchBtn.on("click", getGeoLocation);
-
     // history
     if (searchHistory.length > 0) {
         getCurrentWeather(searchHistory[searchHistory.length - 1]);
@@ -104,6 +103,9 @@ $(document).ready(function() {
     for (var i = 0; i < searchHistory.length; i++) {
         makeHistoryList(searchHistory[i]);
     }
+
+    // event listener to render weather data
+    searchBtn.on("click", getGeoLocation);
 
     // event listener to clear history and all data
     deleteBtn.on("click", function(event) {
