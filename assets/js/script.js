@@ -48,9 +48,9 @@ $(document).ready(function() {
             var cardBody = $("<div>").addClass("card-body");
             var cityName = $("<h3>").addClass("card-title").text(name);
             var weatherIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.current.weather[0].icon + ".png");
-            var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + response.current.temp);
-            var humidity = $("<p>").addClass("card-text").text("Humidity: " + response.current.humidity);
-            var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + response.current.wind_speed);
+            var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + Math.floor(response.current.temp));
+            var humidity = $("<p>").addClass("card-text").text("Humidity: " + Math.floor(response.current.humidity));
+            var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + Math.floor(response.current.wind_speed));
             var uvI = $("<p>").addClass("card-text").text("UV Index: " + response.current.uvi);
             cityName.append(weatherIcon);
             cardBody.append(cityName, temp, humidity, windspeed, uvI);
@@ -62,9 +62,9 @@ $(document).ready(function() {
                 var cardBody = $("<div>").addClass("card-body");
                 var cityName = $("<h3>").addClass("card-title").text(name);
                 var weatherIcon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.daily[i].weather[0].icon + ".png");
-                var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + response.daily[i].temp.day);
-                var humidity = $("<p>").addClass("card-text").text("Humidity: " + response.daily[i].humidity);
-                var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + response.daily[i].wind_speed);
+                var temp = $("<p>").addClass("card-text").text("Current Temperature (F): " + Math.floor(response.daily[i].temp.day));
+                var humidity = $("<p>").addClass("card-text").text("Humidity: " + Math.floor(response.daily[i].humidity));
+                var windspeed = $("<p>").addClass("card-text").text("Wind speed (mph): " + Math.floor(response.daily[i].wind_speed));
                 
                 cityName.append(weatherIcon);
                 cardBody.append(cityName, temp, humidity, windspeed);
