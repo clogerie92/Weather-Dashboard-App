@@ -28,6 +28,8 @@ $(document).ready(function() {
             
             getCurrentWeather(lat, lon, name);
             makeHistoryList(name);
+            currentWeatherDiv.empty();
+            fiveDayForecast.empty();
 
 
         });
@@ -74,15 +76,11 @@ $(document).ready(function() {
 
     function makeHistoryList(city) {
         // var cityName = userInput.val().trim();
-        var historyButton = $("<button>");
+        var historyButton = $("<button>").addClass("btn btn-primary");
         historyButton.addClass("btn").text(city);
         historyList.append(historyButton);
     }
 
     searchBtn.on("click", getGeoLocation);
-
-
-
-
 });
 
