@@ -6,6 +6,7 @@ $(document).ready(function() {
     var historyList = $(".history-list");
     var currentWeatherDiv = $("#current-weather");
     var forecastDiv = $("#forecast");
+    var fiveDayForecast = $("#five-day-forecast");
     // starting local storage
     var searchHistory = JSON.parse(window.localStorage.getItem("search-history")) || [];
 
@@ -65,7 +66,7 @@ $(document).ready(function() {
                 cityName.append(weatherIcon);
                 cardBody.append(cityName, temp, humidity, windspeed);
                 weatherCard.append(cardBody);
-                forecastDiv.append(weatherCard);
+                fiveDayForecast.append(weatherCard);
             }
         });
         console.log("Search button clicked!!!");
