@@ -122,7 +122,7 @@ $(document).ready(function() {
     });
 
     // event listener to render weather data from history
-    $(".history").on("click", "li", function() {
+    $(".history").on("click", "button", function() {
         getCurrentWeather($(this).city);
     });
 });
