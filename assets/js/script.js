@@ -9,8 +9,9 @@ $(document).ready(function() {
     var forecastDiv = $("#forecast");
     var fiveDayForecast = $("#five-day-forecast");
     // starting local storage
-    var searchHistory = JSON.parse(window.localStorage.getItem("search-history")) || [];
+    var searchHistory = JSON.parse(window.localStorage.getItem("history")) || [];
 
+    // function to get lat&lon coordinates
     function getGeoLocation () {
         var city = userInput.val().trim();
         var apiKey = "b0786aaf2595b4e2380f01ed8f03a7a4";
@@ -26,16 +27,13 @@ $(document).ready(function() {
             console.log("LAT & LON: " + lat, lon);
             console.log("Geolocation: ", response);
 
-            
             getCurrentWeather(lat, lon, name);
-            // makeHistoryList(name);
             currentWeather.empty();
             fiveDayForecast.empty();
-
-
         });
     }
 
+    // function to get current weather and create cards to render weather data
     function getCurrentWeather(lat, lon, name) {
         var apiKey = "b0786aaf2595b4e2380f01ed8f03a7a4";
         var queryUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&units=imperial";
@@ -61,7 +59,7 @@ $(document).ready(function() {
             cardBody.append(cityName, temp, humidity, windspeed, uvI);
             weatherCard.append(cardBody);
             currentWeather.append(weatherCard);
-
+            // loops through current weather object and creates cards
             for (var i = 1; i < 6; i++) {
                 var weatherCard = $("<div>").addClass("card");
                 var cardBody = $("<div>").addClass("card-body");
@@ -80,9 +78,9 @@ $(document).ready(function() {
         console.log("Search button clicked!!!");
     }
 
+    // function to create history list
     function makeHistoryList(city) {
-        // var cityName = userInput.val().trim();
-        var historyButton = $("<button>").addClass("btn btn-primary history");
+        var historyButton = $("<li>").addClass("list-group-item list-group-item-action history");
         historyButton.addClass("btn").text(city);
         historyList.append(historyButton);
     }
@@ -93,11 +91,12 @@ $(document).ready(function() {
     if (searchHistory.length > 0) {
         getCurrentWeather(searchHistory[searchHistory.length - 1]);
     }
-
+    // loop through history array and create history list
     for (var i = 0; i < searchHistory.length; i++) {
         makeHistoryList(searchHistory[i]);
     }
 
+    // event listener to clear history and all data
     deleteBtn.on("click", function(event) {
         event.preventDefault();
         cityList = [];
@@ -105,8 +104,9 @@ $(document).ready(function() {
         document.location.reload();
     });
 
-    $(".history").on("click", function() {
-        getCurrentWeather($(this).city);
+    // event listener to render weather data from history
+    $(".history").on("click", "li", function() {
+        getGeoLocation($(this).city);
     });
 });
 
