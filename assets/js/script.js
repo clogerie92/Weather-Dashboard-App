@@ -15,7 +15,7 @@ $(document).ready(function() {
     function getGeoLocation () {
         var city = userInput.val().trim();
         var apiKey = "b0786aaf2595b4e2380f01ed8f03a7a4";
-        var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
+        var url = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + apiKey;
 
         $.ajax({
             url: url,
